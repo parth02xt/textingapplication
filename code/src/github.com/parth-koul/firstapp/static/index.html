@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        #container {
+            display: flex;
+            width: 100%;
+        }
+        #sidebar {
+            width: 300px;
+            background-color: #fff;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        #sidebar input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #sidebar button:hover {
+            background-color: #0056b3;
+        }
+        #roomList {
+            list-style-type: none;
+            padding: 0;
+        }
+        #roomList li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+        }
+        #roomList li:hover {
+            background-color: #f1f1f1;
+        }
+        #chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+        }
+        #header {
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+        }
+        #header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        #messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 60%;
+        }
+        .message.username {
+            background-color: #007bff;
+            color: #fff;
+            align-self: flex-end;
+        }
+        .message.other {
+            background-color: #f1f1f1;
+            color: #333;
+            align-self: flex-start;
+        }
+        #footer {
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            display: flex;
+        }
+        #footer input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        #footer button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #footer button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="sidebar">
+            <input type="text" id="roomName" placeholder="New Room Name">
+            <button onclick="createRoom()">Create Room</button>
+            <ul id="roomList"></ul>
+        </div>
+        <div id="chat">
+            <div id="header">
+                <h2 id="currentRoom">Select a Room</h2>
+            </div>
+            <div id="messages"></div>
+            <div id="footer">
+                <input type="text" id="message" placeholder="Message" disabled>
+                <button id="sendButton" onclick="sendMessage()" disabled>Send</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let username = '';
+
+        window.onload = function() {
+            while (!username) {
+                username = prompt("Enter your username:");
+            }
+            document.getElementById('message').disabled = false;
+            document.getElementById('sendButton').disabled = false;
+            loadRoomList();
+            setInterval(loadMessages, 5000);
+        };
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
+ 
